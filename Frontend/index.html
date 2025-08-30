@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Timetable Scheduler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Frontend/CSS/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <div id="login-screen" class="card">
+            <div class="card-header">
+                <h1 class="title">Smart Scheduler</h1>
+                <p class="subtitle">Log in to manage your institution's timetable.</p>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="e.g., admin@school.com" value="admin@school.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" value="password">
+                </div>
+                <button type="button" id="login-button" class="btn btn-primary">Login & Setup Timetable</button>
+            </form>
+        </div>
+
+        <div id="setup-screen" class="card hidden">
+            <div class="card-header">
+                <h1 class="title">Timetable Configuration</h1>
+                <p class="subtitle">Define the structure of your weekly schedule.</p>
+            </div>
+            <div class="setup-layout">
+                <div class="form-group">
+                    <label for="num-periods">How many periods per day?</label>
+                    <input type="number" id="num-periods" value="5" min="1" max="12">
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="include-saturday">
+                        <label for="include-saturday">Include Saturday in the timetable</label>
+                    </div>
+                </div>
+            </div>
+            <div id="time-slots-container" class="form-group">
+                </div>
+            <div class="form-group">
+                <label for="lunch-period-select">Select Lunch/Recess Period</label>
+                <select id="lunch-period-select" class="form-control">
+                    </select>
+            </div>
+            <button id="generate-dashboard-button" class="btn btn-primary hidden">Generate Timetable & View Dashboard</button>
+        </div>
+
+        <div id="dashboard-screen" class="card hidden">
+            <div class="card-header dashboard-header">
+                <div>
+                    <h1 class="title">Master Timetable</h1>
+                    <p class="subtitle">Drag from the sidebar to assign. Drag between cells to swap.</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button id="back-to-setup-button" class="btn btn-secondary">Go Back to Setup</button>
+                    <button id="manage-teachers-button" class="btn btn-secondary">Manage Teachers</button>
+                </div>
+            </div>
+            <div class="dashboard-layout">
+                <aside id="teacher-sidebar">
+                    <h3>Teachers</h3>
+                    <ul id="sidebar-teacher-list">
+                        </ul>
+                </aside>
+                <main class="table-container">
+                    <table>
+                        <thead id="timetable-head"></thead>
+                        <tbody id="timetable-body"></tbody>
+                    </table>
+                </main>
+            </div>
+            <div class="card-footer">
+                <button id="print-button" class="btn btn-primary">Print / Save as PDF</button>
+            </div>
+        </div>
+
+
+        <div id="teacher-screen" class="card hidden">
+             <div class="card-header dashboard-header">
+                 <div>
+                    <h1 class="title">Teacher Management</h1>
+                    <p class="subtitle">Add teachers and their subjects. Mark them as absent here.</p>
+                </div>
+                <button id="back-to-dashboard-button" class="btn btn-secondary">Back to Timetable</button>
+            </div>
+            <div class="management-layout">
+                <div class="management-form">
+                    <h3>Add New Teacher</h3>
+                    <form id="add-teacher-form">
+                        <div class="form-group">
+                            <label for="teacher-name">Teacher Name</label>
+                            <input type="text" id="teacher-name" placeholder="e.g., Mr. Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teacher-subjects">Subjects (comma-separated)</label>
+                            <input type="text" id="teacher-subjects" placeholder="e.g., Math, Science" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Teacher</button>
+                    </form>
+                </div>
+                <div class="management-list">
+                    <h3>Current Teachers</h3>
+                    <ul id="teachers-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="substitution-modal" class="modal-overlay hidden">
+        <div class="modal-content card">
+            <h2 id="modal-title">Available Substitutes</h2>
+            <p id="modal-subtitle">Select a teacher to cover this class.</p>
+            <ul id="substitute-list"></ul>
+            <button id="close-modal-button" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+    
+    <script src="../Frontend/JS/main.js"></script>
+</body>
+</html>
